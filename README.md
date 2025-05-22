@@ -1,34 +1,92 @@
+🏃‍♂️ Projeto Detecção de Pace com ESP32 + MQTT + Python
+🚀 Propósito
+Este projeto tem como objetivo detectar o tempo de contato dos pés com o solo durante uma corrida, utilizando um sensor MPU6050 conectado a um ESP32.
 
+O ESP envia os dados de cada passada via MQTT (broker HiveMQ) para um script Python que:
 
+Calcula a média do tempo de contato e a frequência das passadas (intervalo entre elas).
 
-# 🏃‍♂️ Detecção de Pisada com ESP32, MPU6050 e MQTT
+Verifica se o atleta está mantendo um pace consistente.
 
-## 📌 Propósito
+Retorna um sinal via MQTT:
 
-Este projeto tem como objetivo **monitorar o tempo de contato do pé com o solo durante uma corrida**, utilizando um **sensor MPU6050** acoplado a um **ESP32**. A partir disso, é possível analisar a mecânica da corrida para fins de **melhoria de desempenho**, **biomecânica esportiva** ou **prevenção de lesões**.
+✅ 1 bip no buzzer — se o pace está regular.
 
----
+⚠️ 3 bips — se está irregular.
 
-## ⚙️ Como Funciona
+🔗 Integrações
+🛰️ ESP32 com sensor MPU6050 → detecta as pisadas.
 
-- O **ESP32** lê os dados do acelerômetro do **MPU6050**.
-- Ao detectar um impacto (pisada) e posterior saída do pé do solo, ele **calcula o tempo de contato com o chão**.
-- O tempo é enviado via **protocolo MQTT** para um broker (neste caso, o **HiveMQ**).
-- Os dados podem ser consumidos por qualquer cliente MQTT, como um **script Python**, que poderá:
-  - Fazer análise dos dados em tempo real
-  - Exibir visualizações
-  - Retornar comandos para acionar dispositivos (ex: buzzer de feedback)
+☁️ Broker MQTT (HiveMQ) → transmissão dos dados.
 
----
+🐍 Python Script → análise estatística e controle de feedback (buzzer no ESP).
 
-## 🔗 Integração com HiveMQ
+🏗️ Estrutura do Projeto
+bash
+Copiar
+Editar
+.
+├── esp32_pisada.ino        # Código Arduino para ESP32
+├── feedback_pace.py        # Script Python (recebe, calcula e envia sinais)
+├── requirements.txt        # Dependências Python
+└── README.md               # Este arquivo
+🔧 Instalação do Script Python
+Clone o projeto:
 
-Este projeto utiliza o [HiveMQ Broker Público](https://www.hivemq.com/demos/websocket-client/) como ponto de comunicação MQTT.
-https://www.thingiverse.com/thing:632676
+bash
+Copiar
+Editar
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+Crie um ambiente virtual (opcional, mas recomendado):
 
-- **Broker:** `broker.hivemq.com`
-- **Porta:** `1883`
-- **Tópico de envio:** `corrida/pisada`
-- **Formato da mensagem:**
-  ```json
-  { "duracao": 145 }
+bash
+Copiar
+Editar
+python -m venv venv
+venv\Scripts\activate        # Windows
+source venv/bin/activate     # Linux/Mac
+Instale as dependências:
+
+bash
+Copiar
+Editar
+pip install -r requirements.txt
+Execute o script:
+
+bash
+Copiar
+Editar
+python feedback_pace.py
+📦 requirements.txt
+txt
+Copiar
+Editar
+paho-mqtt
+🌐 Configurações MQTT
+Broker público: broker.hivemq.com
+
+Tópicos usados:
+
+📥 Recebe dados do ESP: corrida/pisada
+
+📤 Envia sinal de feedback: corrida/feedback
+
+💡 Funcionamento do Feedback
+Condição	Ação no ESP32
+Pace consistente (baixo desvio)	🔔 1 Bip
+Pace irregular (alto desvio)	🔔🔔🔔 3 Bips
+
+🛠️ Tecnologias
+📡 ESP32 + C++ (Arduino)
+
+📐 MPU6050 (Acelerômetro)
+
+🔗 MQTT (HiveMQ)
+
+🐍 Python + paho-mqtt
+
+🤝 Créditos
+Desenvolvido por Mateus Nuci, Vitor Santos e Luigi Licciardi. 🚀
+Esse projeto é experimental e educativo, visando explorar IoT, computação embarcada e análise de dados em tempo real.
+
