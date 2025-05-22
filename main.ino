@@ -25,7 +25,7 @@ unsigned long tempoMinimoContato = 80;
 // === WiFi + MQTT ===
 const char* ssid = "FIAP-WIFI";
 const char* password = "FiapBXx&J5";
-const char* mqtt_server = "broker.hivemq.com";  // Pode usar seu próprio broker
+const char* mqtt_server = "broker.hivemq.com";  
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -108,7 +108,8 @@ void loop() {
     unsigned long duracaoContato = tempoFimContato - tempoInicioContato;
 
     if (duracaoContato >= tempoMinimoContato) {
-      String mensagem = String("{\"duracao\":") + duracaoContato + String("}");
+      String mensagem = String("{\"duracao\":") + duracaoContato +
+                  String(",\"tempoPisada\":") + tempoInicioContato + String("}");
       client.publish("corrida/pisada", mensagem.c_str());
       Serial.print("Tempo de contato com o solo: ");
       Serial.print(duracaoContato);
