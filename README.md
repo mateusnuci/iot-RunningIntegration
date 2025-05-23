@@ -89,3 +89,6 @@ paho-mqtt
 
 Desenvolvido por Mateus Nuci, Vitor Santos e Luigi Licciardi. 🚀  
 Esse projeto é experimental e educativo, visando explorar IoT, computação embarcada e análise de dados em tempo real.
+
+## Link do Canvas:
+https://www.canva.com/design/DAGoN-F-7wc/RUZIy9co2aCauJNcCa2n7g/edit?utm_content=DAGoN-F-7wc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
